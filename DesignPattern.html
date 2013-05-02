@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Design Patterns</title>
+    
+</head>
+
+<body>
+    
+    <!-- This code is adapted from the design patterns book   and was adapted to something I am more familiar -->
+    <!-- with.  I changed the cars to students and started adding more student information through selectors -->
+    <!-- This code was comprosied by Jacob Hidalgo in IS 683.  You will find some comments below thaT I made -->
+    <!-- myself as I was testing the functionality of the decorators, I hope you don't mind... -->
+<script>
+ 
+    
+    
+// Creating a student database.  Here are the initial fields
+function Student( Name, Age, Grade ) {
+
+  this.Name = Name;
+  this.Age = Age;
+  this.Grade = Grade;
+
+}
+
+//Initial Print String
+Student.prototype.toString = function () {
+  return this.Name + " is  " + this.Age + " years old and is Grade " + this.Grade + ".  ";
+};
+
+// Creating Initial Students for the DB:
+
+var George = new Student( "George Ramirez", 10, 5 );
+var Jacob = new Student( "Jacob Hidalgo", 15, 12 );
+var Jean = new Student ( "Jean Grey", 14, 11);
+var Scott = new Student ("Scott Summers", 17, 13)
+
+
+// Having the constructed objects appear in the HTML page
+document.write ( George.toString() + "<br>" );
+document.write ( Jacob.toString() + "<br>" );
+document.write ( Jean.toString() + "<br>" );
+document.write ( Scott.toString() + "<br>" );
+
+
+//Adding line breaks for easier reading on the HTML front end
+document.write ( " <br>");
+
+
+// New Student Kelly joins the school
+var Kelly = new Student( "Kelly Brown" , 6, 1 );
+
+// Added Gender to the Student's Objects Decorator #1  Using a prototype instead of making set statements for each student
+
+Student.prototype.setGender = function ( gender ) {
+    this.gender = gender;
+}
+
+
+//Updated Print String to show Gender
+Student.prototype.toStringG = function () {
+  return this.Name + " is  " + this.Age + " years old and is in Grade " + this.Grade + ".  " + "  " + this.Name + " is a " + this.gender;
+};
+
+
+   
+// Setting the gender value to each of the students
+George.setGender( "male" );
+Jacob.setGender( "male" );
+Jean.setGender( "female" );
+Scott.setGender( "male" );
+Kelly.setGender( "female" );
+
+//Updates the HTML page by posting the new information.
+document.write ( George.toStringG() + "<br>" );
+document.write ( Jacob.toStringG() + "<br>" );
+document.write ( Jean.toStringG() + "<br>" );
+document.write ( Scott.toStringG() + "<br>" );
+document.write ( Kelly.toStringG() + "<br>" );
+
+
+//Adding line breaks for easier reading on the HTML front end
+document.write ( " <br>");
+
+//Inputting School District Information Decorator #2
+Student.prototype.setSendingDistrict = function ( sendingdistrict ) {
+    this.sendingdistrict = sendingdistrict;
+}
+
+//Updated Print String to show Gender and Sending District
+Student.prototype.toStringSD = function () {
+  return this.Name + " is  " + this.Age + " years old and is in Grade " + this.Grade + ".  " + "  " + this.Name + " is a " + this.gender + " and is from the " + this.sendingdistrict + " district.";
+};
+
+//Setting the Sending District Information on the students.
+George.setSendingDistrict( "Bogota" );
+Jacob.setSendingDistrict( "Prospect Park" );
+Jean.setSendingDistrict( "Paramus" );
+Scott.setSendingDistrict( "Paramus" );
+Kelly.setSendingDistrict( "Haledon" );
+
+//Prints the output to the HTML screen
+document.write ( George.toStringSD() + "<br>" );
+document.write ( Jacob.toStringSD() + "<br>" );
+document.write ( Jean.toStringSD() + "<br>" );
+document.write ( Scott.toStringSD() + "<br>" );
+document.write ( Kelly.toStringSD() + "<br>" );
+
+//Adding line breaks for easier reading on the HTML front end
+document.write ( " <br>");
+
+//Testing if decorators added the STUDENT function
+
+var Mike = new Student( "Mike Jordan" , 18, 12, "Male", "Chicago" );
+
+document.write ( Mike.toStringSD() + "<br>" );
+//It looks like it doesn't work that way.  It seems that anything created after the intial values has to be changes with the NAME.set_______ statements. 
+
+//Adding line breaks for easier reading on the HTML front end
+document.write ( " <br>");
+
+//Adding the extra decorators to Mike for consistency
+
+Mike.setGender ( "male" );
+Mike.setSendingDistrict ( "Chicago" );
+
+
+//Updating the HTML for Mike
+document.write ( Mike.toStringSD() + "<br>" );
+
+
+//Adding Sports played Decorator #3
+
+Student.prototype.setSports = function ( sports ) {
+    this.sports = sports;
+};
+
+//Sports String created for those who play sports    
+Student.prototype.toStringSports = function () {
+  return this.Name + " plays " + this.sports + ".  " ;
+};
+
+
+
+
+//Setting the decorators for the students who play sports
+Jean.setSports ( "Tennis");
+Scott.setSports ( "Dodgeball" );
+Mike.setSports (" Basketball ");
+
+
+//Prints the output to the screen.
+document.write ( Jean.toStringSports() + "<br>" );
+document.write ( Scott.toStringSports() + "<br>" );
+document.write ( Mike.toStringSports() + "<br>" );
+
+//This console shows the updates after the decorators have been enters
+console.log( George );
+console.log ( Jacob );
+console.log ( Jean );
+console.log ( Scott );
+console.log ( Kelly);
+console.log ( Mike);
+
+
+
+</script>
+
+
+</body>
+</html>
